@@ -8,5 +8,30 @@
 </head>
 <body>
     <div id="transaction-list"></div>
+    <h1>Expense Tracker</h1>
+
+<form id="transaction-form">
+    <input
+        id="transaction-name"
+        type="text"
+        placeholder="Transaction name"
+        required
+    >
+    <input
+        id="transaction-amount"
+        type="number"
+        placeholder="Amount"
+        min="1"
+        required
+    >
+    <select id="transaction-type">
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+    </select>
+
+    <button type="submit">Add Transaction</button>
+    
+</form>
+<div id="transactions"></div>
 </body>
 </html>

@@ -1,18 +1,10 @@
 const transactions = [];
-transactions.push(
-    {
-        name: 'salary',
-        amount: 1000,
-        type: 'income',
-    },
-    {
-        name: 'Gas',
-        amount: -30,
-        type: 'expense',
-    }
-
-);
+const form = document.getElementById('transaction-form');
+const nameInput = document.getElementById('transaction-name');
+const amountInput = document.getElementById('transaction-amount');
+const typeInput = document.getElementById('transaction-type');
 const transactionList = document.getElementById('transaction-list');
+
 function renderTransactions() {
     transactionList.replaceChildren();
 
@@ -25,3 +17,18 @@ function renderTransactions() {
 }
 
 renderTransactions();
+form.addEventListener('submit',function(event){
+    event.preventDefault();
+ const name = nameInput.value;
+ const amount = Number(amountInput.value);
+ const type = typeInput.value;
+const transaction = {
+    name,
+    amount,
+    type
+};
+transactions.push(transaction);
+localStorage.setItem('transactions', JSON.stringify(transactions));
+renderTransactions();
+form.reset();
+})
