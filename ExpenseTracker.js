@@ -1,4 +1,6 @@
-const transactions = [];
+const savedTransaction = JSON.parse(localStorage.getItem('transactions'));
+const transactions = savedTransaction || [];
+const totalExpensesElement = document.getElementById('total-expenses');
 const form = document.getElementById('transaction-form');
 const nameInput = document.getElementById('transaction-name');
 const amountInput = document.getElementById('transaction-amount');
@@ -14,7 +16,10 @@ function renderTransactions() {
         item.textContent = `${transaction.name}: ${sign}${Math.abs(transaction.amount)}`;
         transactionList.append(item);
     }
-}
+    const totalExpenses =  transactions.filter(transaction => transaction.type === 'expense').reduce((sum, transaction) => sum + transaction.amount, 0);
+    totalExpensesElement.textContent = totalExpenses;
+    }
+
 
 renderTransactions();
 form.addEventListener('submit',function(event){
@@ -32,3 +37,4 @@ localStorage.setItem('transactions', JSON.stringify(transactions));
 renderTransactions();
 form.reset();
 })
+
