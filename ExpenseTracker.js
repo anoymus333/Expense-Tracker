@@ -1,5 +1,7 @@
 const savedTransaction = JSON.parse(localStorage.getItem('transactions'));
 const transactions = savedTransaction || [];
+const totalIncomeElement = document.getElementById('total-income');
+const balanceElement = document.getElementById('balance');
 const totalExpensesElement = document.getElementById('total-expenses');
 const form = document.getElementById('transaction-form');
 const nameInput = document.getElementById('transaction-name');
@@ -16,9 +18,17 @@ function renderTransactions() {
         item.textContent = `${transaction.name}: ${sign}${Math.abs(transaction.amount)}`;
         transactionList.append(item);
     }
-    const totalExpenses =  transactions.filter(transaction => transaction.type === 'expense').reduce((sum, transaction) => sum + transaction.amount, 0);
+    const totalIncome = transactions
+        .filter(transaction => transaction.type === 'income')
+        .reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0);
+        totalIncomeElement.textContent = totalIncome;
+    const totalExpenses = transactions
+        .filter(transaction => transaction.type === 'expense')
+        .reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0);
     totalExpensesElement.textContent = totalExpenses;
-    }
+    const balance = totalIncome - totalExpenses;
+    balanceElement.textContent = balance;
+}
 
 
 renderTransactions();
@@ -37,4 +47,3 @@ localStorage.setItem('transactions', JSON.stringify(transactions));
 renderTransactions();
 form.reset();
 })
-
