@@ -15,8 +15,18 @@ function renderTransactions() {
     for (const transaction of transactions) {
         const sign = transaction.type === 'income' ? '+' : '-';
         const item = document.createElement('p');
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
         item.textContent = `${transaction.name}: ${sign}${Math.abs(transaction.amount)}`;
         transactionList.append(item);
+        item.append(deleteButton);
+
+        deleteButton.addEventListener('click', function(event) {
+const index = transactions.findIndex( item => item === transaction);
+transactions.splice(index, 1);
+localStorage.setItem('transactions', JSON.stringify(transactions));
+renderTransactions();
+});
     }
     const totalIncome = transactions
         .filter(transaction => transaction.type === 'income')
@@ -42,6 +52,11 @@ const transaction = {
     amount,
     type
 };
+const deleteButton = document.createElement('button');
+deleteButton.textContent = 'Delete';
+
+
+
 transactions.push(transaction);
 localStorage.setItem('transactions', JSON.stringify(transactions));
 renderTransactions();
