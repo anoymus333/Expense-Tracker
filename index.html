@@ -10,6 +10,18 @@
     <h2>Total Expenses: Rs. <span id="total-expenses">0</span></h2>
     <h2>Total Income: Rs. <span id="total-income">0</span></h2>
     <h2>Balance: Rs. <span id="balance">0</span></h2>
+
+    <select id="filter-type">
+  <option value="all">All Transactions</option>
+  <option value="income">Income</option>
+  <option value="expense">Expenses</option>
+</select>
+
+<select id="sort-date">
+    <option value="newest">Newest first</option>
+    <option value="oldest">Oldest first</option>
+</select>
+
     <div id="transaction-list"></div>
     <h1>Expense Tracker</h1>
 
@@ -27,6 +39,8 @@
         min="1"
         required
     >
+    <label for="transaction-date">Date</label>
+<input type="date" id="transaction-date" required>
     <select id="transaction-type">
         <option value="expense">Expense</option>
         <option value="income">Income</option>
